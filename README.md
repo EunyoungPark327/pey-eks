@@ -111,7 +111,7 @@ $ kubectl get svc -A
 $ kubectl get ingress -A
 ```
 
-### 애플리케이션 확인
+### 3. 애플리케이션 확인
 
 ```bash
 $ curl http://<alb-dns>
