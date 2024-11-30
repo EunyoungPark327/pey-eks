@@ -15,7 +15,7 @@
   - Pod는 ap-northeast-2a, ap-northeast-2c에 분산 배치됩니다.
 - **Spring boot 애플리케이션**
   - 테스트 샘플: https://github.com/spring-guides/gs-spring-boot-docker
-  - fork한 repo에 github actions를 추가하여 ecr로 이미지를 빌드 후 푸쉬합니다.
+  - fork한 repo에 [github actions](https://github.com/EunyoungPark327/gs-spring-boot-docker/blob/main/.github/workflows/build.yml)를 추가하여 ecr로 이미지를 빌드 후 푸쉬합니다.
 - **Kuberntest Manifest**
   - `deployment.yaml`: Spring Boot 애플리케이션을 배포합니다. `affinity` 설정을 통해 Pod가 노드에 균형 있게 분배되도록 구성합니다.
   - `hpa.yaml`: CPU 사용량 기준으로 자동 `scale-out`을 설정하여 부하에 따라 Pod의 수를 조정합니다.
