@@ -25,16 +25,13 @@
 
 ## Requirementes
 
----
-
-|Name|Version|
-|terraform|>= 1.4|
-|aws|>= 5.40|
-|kubernetes| >= 2.24|
+| Name       | Version |
+| ---------- | ------- |
+| terraform  | >= 1.4  |
+| aws        | >= 5.40 |
+| kubernetes | >= 2.24 |
 
 ## Providers
-
----
 
 |Name|Version|
 |aws|>= 5.40|
