@@ -26,7 +26,7 @@
 
 | Name       | Version |
 | ---------- | ------- |
-| terraform  | >= 1.0  |
+| terraform  | >= 1.5  |
 | aws        | >= 5.40 |
 | kubernetes | >= 2.10 |
 
