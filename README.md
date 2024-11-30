@@ -8,15 +8,14 @@
 ## Overview
 
 - **Public Subnet**
-  - ALB와 Internet Gateway와 연결됩니다.
-  - 외부 트래픽을 Private Subnet으로 라우팅합니다.
+  - ALB와 Internet Gateway가 Public Sunbet에 배포됩니다.
 - **Private Subnet**
   - EC2 노드가 실행되며, NAT Gateway를 통해 외부 통신이 가능합니다.
   - 외부 통신 시 같은 Zone의 NAT를 이용합니다.
   - Pod는 ap-northeast-2a, ap-northeast-2c에 분산 배치됩니다.
 - **Spring boot 애플리케이션**
   - 테스트 샘플: https://github.com/spring-guides/gs-spring-boot-docker
-  - fork한 repo에 github actions를 추가하여 ecr로 이미지 빌드 후 푸쉬합니다.
+  - fork한 repo에 github actions를 추가하여 ecr로 이미지를 빌드 후 푸쉬합니다.
 - **Kuberntest Manifest**
   - `deployment.yaml`: Spring Boot 애플리케이션을 배포합니다. `affinity` 설정을 통해 Pod가 노드에 균형 있게 분배되도록 구성합니다.
   - `hpa.yaml`: CPU 사용량 기준으로 자동 `scale-out`을 설정하여 부하에 따라 Pod의 수를 조정합니다.
@@ -33,8 +32,9 @@
 
 ## Providers
 
-|Name|Version|
-|aws|>= 5.40|
+| Name | Version |
+| ---- | ------- |
+| aws  | >= 5.40 |
 
 ## Directory Structure
 
