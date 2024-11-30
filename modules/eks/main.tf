@@ -34,7 +34,9 @@ module "eks" {
     kube-proxy = {
       most_recent = true
     }
-    eks-pod-identity-agent = {}
+    eks-pod-identity-agent = {
+      most_recent = true
+    }
   }
 
   eks_managed_node_group_defaults = {
@@ -48,7 +50,7 @@ module "eks" {
       subnet_ids = var.private_subnets
       min_size   = 2
       max_size   = 4
-      desired    = 2
+      desired_size    = 2
 
       capacity_type  = "ON_DEMAND"
       instance_types = ["t3.medium"]
@@ -60,34 +62,9 @@ module "eks" {
         AmazonEC2ContainerRegistryReadOnly = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
         AmazonEBSCSIDriverPolicy           = "arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy"
         AmazonEKSCNIPolicy                 = "arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy"
+        AmazonEKSLoadBalancingPolicy       = "arn:aws:iam::aws:policy/AmazonEKSLoadBalancingPolicy"
       }
     }
-  }
-}
-
-data "aws_iam_policy" "ebs_csi_policy" {
-  arn = "arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy"
-}
-
-module "irsa-ebs-csi" {
-  source  = "terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc"
-  version = "5.47.0"
-
-  create_role                   = true
-  role_name                     = "AmazonEKSTFEBSCSIRole-${module.eks.cluster_name}"
-  provider_url                  = module.eks.oidc_provider
-  role_policy_arns              = [data.aws_iam_policy.ebs_csi_policy.arn]
-  oidc_fully_qualified_subjects = ["system:serviceaccount:kube-system:ebs-csi-controller-sa"]
-}
-
-resource "aws_eks_addon" "ebs-csi" {
-  cluster_name             = module.eks.cluster_name
-  addon_name               = "aws-ebs-csi-driver"
-  addon_version            = "v1.35.0-eksbuild.1"
-  service_account_role_arn = module.irsa-ebs-csi.iam_role_arn
-  tags = {
-    "eks_addon" = "ebs-csi"
-    "terraform" = "true"
   }
 }
 
@@ -101,7 +78,7 @@ data "aws_iam_policy_document" "alb_controller" {
       "ec2:RevokeSecurityGroupIngress",
       "ec2:CreateSecurityGroup",
       "ec2:DeleteSecurityGroup",
-      "iam:GetPolicy",
+      "ec2:CreateTags",
       "iam:CreateServiceLinkedRole",
       "iam:AttachRolePolicy",
       "iam:CreatePolicy",
