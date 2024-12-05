@@ -78,7 +78,7 @@ cluster name은 기본 `pey`으로 적용 돼 있습니다.
 $ kubectl apply -f manifest/
 ```
 
-### 4. helm으로 alb-conroller 설치 및 배포
+### 4. helm으로 alb-controller 설치 및 배포
 
 ```bash
 $ eksctl create iamserviceaccount \
