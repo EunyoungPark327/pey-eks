@@ -72,13 +72,7 @@ $ aws eks update-kubeconfig --name <cluster-name>
 
 cluster name은 기본 `pey`으로 적용 돼 있습니다.
 
-### 3. 애플리케이션 배포
-
-```bash
-$ kubectl apply -f manifest/
-```
-
-### 4. helm으로 alb-controller 설치 및 배포
+### 3. helm으로 alb-controller 설치 및 배포
 
 ```bash
 $ eksctl create iamserviceaccount \
@@ -95,6 +89,12 @@ $ helm install aws-load-balancer-controller eks/aws-load-balancer-controller \
   --set serviceAccount.name=aws-load-balancer-controller \
   --set region=<REGION> \
   --set vpcId=<VPC_ID>
+```
+
+### 4. 애플리케이션 배포
+
+```bash
+$ kubectl apply -f manifest/
 ```
 
 ## Validation
