@@ -90,8 +90,21 @@ $ helm install aws-load-balancer-controller eks/aws-load-balancer-controller \
   --set region=<REGION> \
   --set vpcId=<VPC_ID>
 ```
+### 4. Metrics Server 설치
+```bash
+# Metrics Server 설치
+$ kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
 
-### 4. 애플리케이션 배포
+# 설치 확인
+$ kubectl get deployment metrics-server -n kube-system
+
+# 노드 및 파드 메트릭 확인 (Optional)
+$ kubectl top nodes
+$ kubectl top pods
+```
+Note: Metrics Server는 클러스터의 리소스(CPU, 메모리) 사용량을 수집하여 HPA가 이를 기반으로 Pod를 스케일링할 수 있도록 지원합니다. 해당 프로젝트에서는 CPU 기반으로 작동합니다.
+
+### 5. 애플리케이션 배포
 
 ```bash
 $ kubectl apply -f manifest/
